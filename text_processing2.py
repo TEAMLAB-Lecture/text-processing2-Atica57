@@ -28,7 +28,14 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
+    digit_to_latter_map = {0:"zero", 1:"one", 2:"two", 3:"three", 4:"four",
+                           5:"five", 6:"six", 7:"seven", 8:"eight", 9:"nine"}
+    
+    digit_string = ""
+    for ch in input_string:
+        if ch.isdigit():
+            digit_string += (digit_to_latter_map[int(ch)] + " ")
+    digit_string = digit_string.rstrip()
     return digit_string
 
 
@@ -64,5 +71,17 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+    camelcase_str = ""; temp= None
+    if "_" in underscore_str : #첫번째 규칙(underscore)적용된 string(아닌 경우 애초에 두번째 규칙이 적용된 것)
+        temp1 = underscore_str.split('_'); temp2= []
+        for word in temp1:
+            if word != '':
+                temp2.append(word)
+        for i in range(0, len(temp2)):
+            if i == 0 :#첫단어 -> 소문자로 
+                camelcase_str += temp2[i].lower()
+            else:#나머지 단어 -> 맨 앞만 대문자 --> title()
+                camelcase_str += temp2[i].title();
+    else:
+        camelcase_str = underscore_str[:]
     return camelcase_str
